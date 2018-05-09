@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../shared/services/auth.service';
 import {User} from '../shared/models/user';
 
@@ -7,11 +7,14 @@ import {User} from '../shared/models/user';
   templateUrl: './bs-navbar.component.html',
   styleUrls: ['./bs-navbar.component.css']
 })
-export class BsNavbarComponent  {
+export class BsNavbarComponent implements OnInit {
   appUser: User;
 
   constructor(private _auth: AuthService) {
-    _auth.appUser$.subscribe(appUser => this.appUser);
+  }
+
+  async ngOnInit() {
+    this._auth.appUser$.subscribe(appUser => this.appUser = appUser);
   }
 
   logout() {
