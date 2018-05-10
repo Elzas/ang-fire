@@ -27,6 +27,7 @@ import {AdminAuthGuard} from './shared/services/admin-auth-guard.service';
 import {ProductFormComponent} from './admin/product-form/product-form.component';
 import {CategoryService} from './shared/services/category.service';
 import {ProductService} from './shared/services/product.service';
+import {DataTableModule} from 'angular-4-data-table';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {ProductService} from './shared/services/product.service';
   ],
   imports: [
     BrowserModule,
+    DataTableModule,
     FormsModule,
     CustomFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -73,15 +75,19 @@ import {ProductService} from './shared/services/product.service';
         component: MyOrdersComponent,
         canActivate: [AuthGuard]
       },
-
-      {
-        path: 'admin/products',
-        component: AdminProductsComponent,
-        canActivate: [AuthGuard, AdminAuthGuard]
-      },
       {
         path: 'admin/products/new',
         component: ProductFormComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'admin/products/:id',
+        component: ProductFormComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'admin/products',
+        component: AdminProductsComponent,
         canActivate: [AuthGuard, AdminAuthGuard]
       },
       {
