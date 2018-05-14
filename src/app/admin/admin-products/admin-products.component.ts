@@ -1,6 +1,6 @@
-import { Subscription } from 'rxjs/Subscription';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DataTableResource } from 'angular-4-data-table';
+import {Subscription} from 'rxjs/Subscription';
+import {Component, OnDestroy} from '@angular/core';
+import {DataTableResource} from 'angular-4-data-table';
 import {Product} from '../../shared/models/product';
 import {ProductService} from '../../shared/services/product.service';
 
@@ -9,12 +9,12 @@ import {ProductService} from '../../shared/services/product.service';
   templateUrl: './admin-products.component.html',
   styleUrls: ['./admin-products.component.css']
 })
-export class AdminProductsComponent implements OnInit, OnDestroy {
+export class AdminProductsComponent implements OnDestroy {
   products: Product[];
   subscription: Subscription;
-  tableResource: DataTableResource<Product>;
   items: Product[] = [];
   itemCount: number;
+  tableResource: DataTableResource<Product>;
 
   constructor(private productService: ProductService) {
     this.subscription = this.productService.getAll()
@@ -26,7 +26,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   private initializeTable(products: Product[]) {
     this.tableResource = new DataTableResource(products);
-    this.tableResource.query({ offset: 0 })
+    this.tableResource.query({offset: 0})
       .then(items => this.items = items);
     this.tableResource.count()
       .then(count => this.itemCount = count);
@@ -49,9 +49,6 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  ngOnInit() {
   }
 
 }
